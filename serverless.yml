@@ -1,0 +1,26 @@
+service: tokenization-serverless
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: sa-east-1
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+functions:
+  getCardHandler:
+    handler: src/infrastructure/handlers/getCardHandler.getCardHandler
+    events:
+      - httpApi:
+          path: /api/cards
+          method: get
+  saveCardHandler:
+    handler: src/infrastructure/handlers/saveCardHandler.saveCardHandler
+    events:
+      - httpApi:
+          path: /api/cards
+          method: post
